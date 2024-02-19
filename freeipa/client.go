@@ -95,7 +95,7 @@ func (t *Error) Error() string {
 }
 
 // Connect connects to the FreeIPA server and performs an initial login.
-func Connect(host string, tspt *http.Transport, user, pw string) (*Client, error) {
+func Connect(host string, tspt http.RoundTripper, user, pw string) (*Client, error) {
 	jar, e := cookiejar.New(&cookiejar.Options{
 		PublicSuffixList: nil, // this should be fine, since we only use one server
 	})
@@ -117,7 +117,7 @@ func Connect(host string, tspt *http.Transport, user, pw string) (*Client, error
 	return c, nil
 }
 
-func ConnectWithKerberos(host string, tspt *http.Transport, k5ConnectOpts *KerberosConnectOptions) (*Client, error) {
+func ConnectWithKerberos(host string, tspt http.RoundTripper, k5ConnectOpts *KerberosConnectOptions) (*Client, error) {
 	jar, e := cookiejar.New(&cookiejar.Options{
 		PublicSuffixList: nil, // this should be fine, since we only use one server
 	})
