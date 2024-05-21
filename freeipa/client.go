@@ -62,7 +62,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"net/http"
 	"net/http/cookiejar"
 	"net/url"
@@ -130,7 +129,7 @@ func ConnectWithKerberos(host string, tspt http.RoundTripper, k5ConnectOpts *Ker
 		return nil, errors.WithMessage(err, "reading kerberos configuration")
 	}
 
-	ktBytes, err := ioutil.ReadAll(k5ConnectOpts.KeytabReader)
+	ktBytes, err := io.ReadAll(k5ConnectOpts.KeytabReader)
 	if err != nil {
 		return nil, errors.WithMessage(err, "reading keytab")
 	}

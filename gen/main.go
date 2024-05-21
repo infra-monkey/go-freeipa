@@ -33,7 +33,6 @@ package main
 
 import (
 	"encoding/json"
-	"io/ioutil"
 	"log"
 	"os"
 	"strings"
@@ -89,7 +88,7 @@ func actualMain() error {
 }
 
 func loadSchema(localOverrides DirtyOverrides) (*Schema, error) {
-	input, e := ioutil.ReadFile("../data/schema.json")
+	input, e := os.ReadFile("../data/schema.json")
 	if e != nil {
 		return nil, e
 	}
@@ -247,7 +246,7 @@ func loadSchema(localOverrides DirtyOverrides) (*Schema, error) {
 }
 
 func loadErrs() ([]ErrDesc, error) {
-	in, e := ioutil.ReadFile("../data/errors.json")
+	in, e := os.ReadFile("../data/errors.json")
 	if e != nil {
 		return nil, e
 	}

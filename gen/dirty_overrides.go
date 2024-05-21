@@ -33,7 +33,7 @@ package main
 
 import (
 	"encoding/json"
-	"io/ioutil"
+	"os"
 )
 
 type DirtyOverrides struct {
@@ -61,7 +61,7 @@ func (c ClassParamsOverrides) OverrideParams(p *Param) {
 
 func loadDirtyOverrides() (DirtyOverrides, error) {
 	var overrides DirtyOverrides
-	in, e := ioutil.ReadFile("../data/dirty_overrides.json")
+	in, e := os.ReadFile("../data/dirty_overrides.json")
 	if e != nil {
 		return overrides, e
 	}
