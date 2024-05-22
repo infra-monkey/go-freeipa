@@ -34,9 +34,9 @@ does not describe any method responses (only requests).
 
 There is also a `schema` method, which is called by the official CLI on first
 start. This has a slightly different structure, but notably also describes
-method respones. This is the method used to generate this library.
+method responses. This is the method used to generate this library.
 
-To regenerate `data/schema.json`: Frist, start a FreeIPA server (for example
+To regenerate `data/schema.json`: First, start a FreeIPA server (for example
 [with Docker](https://www.freeipa.org/page/Docker)). Then, log in to the web UI
 in your browser and copy your `ipa_session` cookie. Finally, make a request like
 the following curl command does:
@@ -46,7 +46,7 @@ curl 'https://dc1.test.local/ipa/session/json' -H 'Origin: https://dc1.test.loca
 ```
 
 You'll need to adjust the URLs and the value of the `ipa_session` cookie. You
-may alse need to adjust `version` in the request body.
+may also need to adjust `version` in the request body.
 
 ### `./dump-errors` step
 
@@ -63,7 +63,7 @@ The `schema.json` file contains **a lot** of information.
 
 Sometimes, the information it contains is ... inaccurate and requires _local interpretation_ to really match the reality of the FreeIPA server response.
 
-There is already a lot of required **HACK** in the [gen/main.go](gen/main.go) file. Addind more would increase the complexity of the code and makes it even harder to maintain.
+There is already a lot of required **HACK** in the [gen/main.go](gen/main.go) file. Adding more would increase the complexity of the code and makes it even harder to maintain.
 
 This is why a file was created to express some of those _required but dirty hacks_. The file is named [dirty_overrides.json](data/dirty_overrides.json) and currently contains very little data.
 
