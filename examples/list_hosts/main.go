@@ -7,7 +7,7 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/ccin2p3/go-freeipa/freeipa"
+	"github.com/infra-monkey/go-freeipa/freeipa"
 )
 
 func main() {

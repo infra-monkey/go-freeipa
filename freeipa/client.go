@@ -52,7 +52,7 @@ The client uses FreeIPA's JSON-RPC interface with username/password authenticati
 There is no support for connecting to FreeIPA with Kerberos authentication.
 There is currently no support for batched requests.
 
-See https://github.com/ccin2p3/go-freeipa/blob/master/developing.md
+See https://github.com/infra-monkey/go-freeipa/blob/master/developing.md
 for information on how this library is generated.
 */
 package freeipa
