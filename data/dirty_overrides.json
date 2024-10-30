@@ -62,6 +62,27 @@
           "required": false
         }
       }
+    },
+    "group": {
+      "params": {
+        "membermanager_group": {
+          "required" : false
+        }
+      }
+    },
+    "hostgroup": {
+      "params": {
+        "membermanager_group": {
+          "required" : false
+        }
+      }
+    },
+    "dnszone": {
+      "params": {
+        "managedby": {
+          "required": false
+        }
+      }
     }
   }
 }
