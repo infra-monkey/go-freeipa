@@ -60,6 +60,9 @@
       "params": {
         "managedby_host": {
           "required": false
+        },
+        "ipaallowedtoperform_write_delegation_user": {
+          "required": false
         }
       }
     },
