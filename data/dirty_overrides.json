@@ -85,6 +85,13 @@
         }
       }
     },
+    "hostgroup": {
+      "params": {
+        "membermanager_group": {
+          "required" : false
+        }
+      }
+    },
     "dnszone": {
       "params": {
         "managedby": {

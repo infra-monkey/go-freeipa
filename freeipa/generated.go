@@ -97610,7 +97610,7 @@ Indirect Member of HBAC rule
 Membership managed by groups
 
     */
-    MembermanagerGroup string `json:"membermanager_group,omitempty"`
+    MembermanagerGroup *string `json:"membermanager_group,omitempty"`
   
     /*
 Membership managed by users
@@ -98133,7 +98133,7 @@ func (out *Hostgroup) UnmarshalJSON(data []byte) error {
     
   }
   
-  if true {
+  if in.MembermanagerGroup != nil {
     raw := in.MembermanagerGroup
     plainV, plainOk := raw.(string)
     sliceWrapperV, sliceWrapperOk := raw.([]interface{})
@@ -98158,13 +98158,14 @@ func (out *Hostgroup) UnmarshalJSON(data []byte) error {
     }
     
       if plainOk {
-        out.MembermanagerGroup = plainV
+        out.MembermanagerGroup = &plainV
       } else if sliceOk {
         
-          if len(sliceV) != 1 {
-            return fmt.Errorf("unexpected value for field MembermanagerGroup: %v; expected exactly one element", raw)
+          if len(sliceV) == 1 {
+            out.MembermanagerGroup = &sliceV[0]
+          } else if len(sliceV) > 1 {
+            return fmt.Errorf("unexpected value for field MembermanagerGroup: %v; expected at most one element", raw)
           }
-          out.MembermanagerGroup = sliceV[0]
         
       } else {
         return fmt.Errorf("unexpected value for field MembermanagerGroup: %v (%v)", raw, reflect.TypeOf(raw))
