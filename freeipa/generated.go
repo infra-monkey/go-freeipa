@@ -92730,7 +92730,7 @@ Membership managed by groups
 Membership managed by users
 
     */
-    MembermanagerUser string `json:"membermanager_user,omitempty"`
+    MembermanagerUser *string `json:"membermanager_user,omitempty"`
   }
 
 func (t *Group) String() string {
@@ -93592,7 +93592,7 @@ func (out *Group) UnmarshalJSON(data []byte) error {
     
   }
   
-  if true {
+  if in.MembermanagerUser != nil {
     raw := in.MembermanagerUser
     plainV, plainOk := raw.(string)
     sliceWrapperV, sliceWrapperOk := raw.([]interface{})
@@ -93617,13 +93617,14 @@ func (out *Group) UnmarshalJSON(data []byte) error {
     }
     
       if plainOk {
-        out.MembermanagerUser = plainV
+        out.MembermanagerUser = &plainV
       } else if sliceOk {
         
-          if len(sliceV) != 1 {
-            return fmt.Errorf("unexpected value for field MembermanagerUser: %v; expected exactly one element", raw)
+          if len(sliceV) == 1 {
+            out.MembermanagerUser = &sliceV[0]
+          } else if len(sliceV) > 1 {
+            return fmt.Errorf("unexpected value for field MembermanagerUser: %v; expected at most one element", raw)
           }
-          out.MembermanagerUser = sliceV[0]
         
       } else {
         return fmt.Errorf("unexpected value for field MembermanagerUser: %v (%v)", raw, reflect.TypeOf(raw))
@@ -97605,7 +97606,7 @@ Indirect Member of HBAC rule
 Membership managed by groups
 
     */
-    MembermanagerGroup *string `json:"membermanager_group,omitempty"`
+    MembermanagerGroup string `json:"membermanager_group,omitempty"`
   
     /*
 Membership managed by users
@@ -98128,7 +98129,7 @@ func (out *Hostgroup) UnmarshalJSON(data []byte) error {
     
   }
   
-  if in.MembermanagerGroup != nil {
+  if true {
     raw := in.MembermanagerGroup
     plainV, plainOk := raw.(string)
     sliceWrapperV, sliceWrapperOk := raw.([]interface{})
@@ -98153,14 +98154,13 @@ func (out *Hostgroup) UnmarshalJSON(data []byte) error {
     }
     
       if plainOk {
-        out.MembermanagerGroup = &plainV
+        out.MembermanagerGroup = plainV
       } else if sliceOk {
         
-          if len(sliceV) == 1 {
-            out.MembermanagerGroup = &sliceV[0]
-          } else if len(sliceV) > 1 {
-            return fmt.Errorf("unexpected value for field MembermanagerGroup: %v; expected at most one element", raw)
+          if len(sliceV) != 1 {
+            return fmt.Errorf("unexpected value for field MembermanagerGroup: %v; expected exactly one element", raw)
           }
+          out.MembermanagerGroup = sliceV[0]
         
       } else {
         return fmt.Errorf("unexpected value for field MembermanagerGroup: %v (%v)", raw, reflect.TypeOf(raw))

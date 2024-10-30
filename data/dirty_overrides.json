@@ -67,12 +67,8 @@
       "params": {
         "membermanager_group": {
           "required" : false
-        }
-      }
-    },
-    "hostgroup": {
-      "params": {
-        "membermanager_group": {
+        },
+        "membermanager_user": {
           "required" : false
         }
       }
