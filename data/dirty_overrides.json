@@ -66,6 +66,12 @@
         },
         "ipaallowedtoperform_write_delegation_group": {
           "required": false
+        },
+        "ipaallowedtoperform_write_delegation_host": {
+          "required": false
+        },
+        "ipaallowedtoperform_write_delegation_hostgroup": {
+          "required": false
         }
       }
     },

@@ -95114,13 +95114,13 @@ Groups allowed to add resource delegation
 Hosts allowed to add resource delegation
 
     */
-    IpaallowedtoperformWriteDelegationHost string `json:"ipaallowedtoperform_write_delegation_host,omitempty"`
+    IpaallowedtoperformWriteDelegationHost *string `json:"ipaallowedtoperform_write_delegation_host,omitempty"`
   
     /*
 Host Groups allowed to add resource delegation
 
     */
-    IpaallowedtoperformWriteDelegationHostgroup string `json:"ipaallowedtoperform_write_delegation_hostgroup,omitempty"`
+    IpaallowedtoperformWriteDelegationHostgroup *string `json:"ipaallowedtoperform_write_delegation_hostgroup,omitempty"`
   }
 
 func (t *Host) String() string {
@@ -97444,7 +97444,7 @@ func (out *Host) UnmarshalJSON(data []byte) error {
     
   }
   
-  if true {
+  if in.IpaallowedtoperformWriteDelegationHost != nil {
     raw := in.IpaallowedtoperformWriteDelegationHost
     plainV, plainOk := raw.(string)
     sliceWrapperV, sliceWrapperOk := raw.([]interface{})
@@ -97469,13 +97469,14 @@ func (out *Host) UnmarshalJSON(data []byte) error {
     }
     
       if plainOk {
-        out.IpaallowedtoperformWriteDelegationHost = plainV
+        out.IpaallowedtoperformWriteDelegationHost = &plainV
       } else if sliceOk {
         
-          if len(sliceV) != 1 {
-            return fmt.Errorf("unexpected value for field IpaallowedtoperformWriteDelegationHost: %v; expected exactly one element", raw)
+          if len(sliceV) == 1 {
+            out.IpaallowedtoperformWriteDelegationHost = &sliceV[0]
+          } else if len(sliceV) > 1 {
+            return fmt.Errorf("unexpected value for field IpaallowedtoperformWriteDelegationHost: %v; expected at most one element", raw)
           }
-          out.IpaallowedtoperformWriteDelegationHost = sliceV[0]
         
       } else {
         return fmt.Errorf("unexpected value for field IpaallowedtoperformWriteDelegationHost: %v (%v)", raw, reflect.TypeOf(raw))
@@ -97483,7 +97484,7 @@ func (out *Host) UnmarshalJSON(data []byte) error {
     
   }
   
-  if true {
+  if in.IpaallowedtoperformWriteDelegationHostgroup != nil {
     raw := in.IpaallowedtoperformWriteDelegationHostgroup
     plainV, plainOk := raw.(string)
     sliceWrapperV, sliceWrapperOk := raw.([]interface{})
@@ -97508,13 +97509,14 @@ func (out *Host) UnmarshalJSON(data []byte) error {
     }
     
       if plainOk {
-        out.IpaallowedtoperformWriteDelegationHostgroup = plainV
+        out.IpaallowedtoperformWriteDelegationHostgroup = &plainV
       } else if sliceOk {
         
-          if len(sliceV) != 1 {
-            return fmt.Errorf("unexpected value for field IpaallowedtoperformWriteDelegationHostgroup: %v; expected exactly one element", raw)
+          if len(sliceV) == 1 {
+            out.IpaallowedtoperformWriteDelegationHostgroup = &sliceV[0]
+          } else if len(sliceV) > 1 {
+            return fmt.Errorf("unexpected value for field IpaallowedtoperformWriteDelegationHostgroup: %v; expected at most one element", raw)
           }
-          out.IpaallowedtoperformWriteDelegationHostgroup = sliceV[0]
         
       } else {
         return fmt.Errorf("unexpected value for field IpaallowedtoperformWriteDelegationHostgroup: %v (%v)", raw, reflect.TypeOf(raw))
