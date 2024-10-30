@@ -97616,7 +97616,7 @@ Membership managed by groups
 Membership managed by users
 
     */
-    MembermanagerUser string `json:"membermanager_user,omitempty"`
+    MembermanagerUser *string `json:"membermanager_user,omitempty"`
   }
 
 func (t *Hostgroup) String() string {
@@ -98173,7 +98173,7 @@ func (out *Hostgroup) UnmarshalJSON(data []byte) error {
     
   }
   
-  if true {
+  if in.MembermanagerUser != nil {
     raw := in.MembermanagerUser
     plainV, plainOk := raw.(string)
     sliceWrapperV, sliceWrapperOk := raw.([]interface{})
@@ -98198,13 +98198,14 @@ func (out *Hostgroup) UnmarshalJSON(data []byte) error {
     }
     
       if plainOk {
-        out.MembermanagerUser = plainV
+        out.MembermanagerUser = &plainV
       } else if sliceOk {
         
-          if len(sliceV) != 1 {
-            return fmt.Errorf("unexpected value for field MembermanagerUser: %v; expected exactly one element", raw)
+          if len(sliceV) == 1 {
+            out.MembermanagerUser = &sliceV[0]
+          } else if len(sliceV) > 1 {
+            return fmt.Errorf("unexpected value for field MembermanagerUser: %v; expected at most one element", raw)
           }
-          out.MembermanagerUser = sliceV[0]
         
       } else {
         return fmt.Errorf("unexpected value for field MembermanagerUser: %v (%v)", raw, reflect.TypeOf(raw))
