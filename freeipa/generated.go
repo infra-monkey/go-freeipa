@@ -95108,7 +95108,7 @@ Users allowed to add resource delegation
 Groups allowed to add resource delegation
 
     */
-    IpaallowedtoperformWriteDelegationGroup string `json:"ipaallowedtoperform_write_delegation_group,omitempty"`
+    IpaallowedtoperformWriteDelegationGroup *string `json:"ipaallowedtoperform_write_delegation_group,omitempty"`
   
     /*
 Hosts allowed to add resource delegation
@@ -97404,7 +97404,7 @@ func (out *Host) UnmarshalJSON(data []byte) error {
     
   }
   
-  if true {
+  if in.IpaallowedtoperformWriteDelegationGroup != nil {
     raw := in.IpaallowedtoperformWriteDelegationGroup
     plainV, plainOk := raw.(string)
     sliceWrapperV, sliceWrapperOk := raw.([]interface{})
@@ -97429,13 +97429,14 @@ func (out *Host) UnmarshalJSON(data []byte) error {
     }
     
       if plainOk {
-        out.IpaallowedtoperformWriteDelegationGroup = plainV
+        out.IpaallowedtoperformWriteDelegationGroup = &plainV
       } else if sliceOk {
         
-          if len(sliceV) != 1 {
-            return fmt.Errorf("unexpected value for field IpaallowedtoperformWriteDelegationGroup: %v; expected exactly one element", raw)
+          if len(sliceV) == 1 {
+            out.IpaallowedtoperformWriteDelegationGroup = &sliceV[0]
+          } else if len(sliceV) > 1 {
+            return fmt.Errorf("unexpected value for field IpaallowedtoperformWriteDelegationGroup: %v; expected at most one element", raw)
           }
-          out.IpaallowedtoperformWriteDelegationGroup = sliceV[0]
         
       } else {
         return fmt.Errorf("unexpected value for field IpaallowedtoperformWriteDelegationGroup: %v (%v)", raw, reflect.TypeOf(raw))
