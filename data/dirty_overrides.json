@@ -99,6 +99,12 @@
       "params": {
         "managedby": {
           "required": false
+        },
+        "idnssoarname": {
+          "required": false
+        },
+        "idnssoamname": {
+          "required": false
         }
       }
     }

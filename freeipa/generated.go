@@ -91442,7 +91442,7 @@ Authoritative nameserver domain name
 Administrator e-mail address
 Administrator e-mail address
     */
-    Idnssoarname interface{} `json:"idnssoarname,omitempty"`
+    Idnssoarname *interface{} `json:"idnssoarname,omitempty"`
   
     /*
 SOA serial
@@ -91888,7 +91888,7 @@ func (out *Dnszone) UnmarshalJSON(data []byte) error {
     
   }
   
-  if true {
+  if in.Idnssoarname != nil {
     raw := in.Idnssoarname
     plainV, plainOk := raw.(interface{})
     sliceWrapperV, sliceWrapperOk := raw.([]interface{})
@@ -91913,13 +91913,14 @@ func (out *Dnszone) UnmarshalJSON(data []byte) error {
     }
     
       if plainOk {
-        out.Idnssoarname = plainV
+        out.Idnssoarname = &plainV
       } else if sliceOk {
         
-          if len(sliceV) != 1 {
-            return fmt.Errorf("unexpected value for field Idnssoarname: %v; expected exactly one element", raw)
+          if len(sliceV) == 1 {
+            out.Idnssoarname = &sliceV[0]
+          } else if len(sliceV) > 1 {
+            return fmt.Errorf("unexpected value for field Idnssoarname: %v; expected at most one element", raw)
           }
-          out.Idnssoarname = sliceV[0]
         
       } else {
         return fmt.Errorf("unexpected value for field Idnssoarname: %v (%v)", raw, reflect.TypeOf(raw))
