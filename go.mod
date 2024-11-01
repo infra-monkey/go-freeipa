@@ -3,7 +3,6 @@ module github.com/infra-monkey/go-freeipa
 go 1.19
 
 require (
-	github.com/ccin2p3/go-freeipa v1.2.0
 	github.com/jcmturner/gokrb5/v8 v8.4.4
 	github.com/pkg/errors v0.9.1
 )

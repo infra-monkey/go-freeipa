@@ -1,12 +1,12 @@
 # go-freeipa
 
-[![Go Reference](https://pkg.go.dev/badge/github.com/ccin2p3/go-freeipa.svg)](https://pkg.go.dev/github.com/ccin2p3/go-freeipa)
+[![Go Reference](https://pkg.go.dev/badge/github.com/infra-monkey/go-freeipa.svg)](https://pkg.go.dev/github.com/infra-monkey/go-freeipa)
 
 A generated golang client for the FreeIPA API.
 
-See the [godoc](https://godoc.org/github.com/ccin2p3/go-freeipa/freeipa) for
+See the [godoc](https://godoc.org/github.com/infra-monkey/go-freeipa/freeipa) for
 usage examples and more info. See
-[`developing.md`](https://github.com/ccin2p3/go-freeipa/blob/master/developing.md)
+[`developing.md`](https://github.com/infra-monkey/go-freeipa/blob/master/developing.md)
 for information on how this library is generated.
 
 ## Features
@@ -27,13 +27,13 @@ We want to thank [Philippe Voinov](https://github.com/tehwalris) for all the awe
 
 [IN2P3 Computing Centre](https://cc.in2p3.fr) will provide support for this library and try to make it evolve as much as possible.
 
-Feel free to open [issues](https://github.com/ccin2p3/go-freeipa/issues) or [pull requests](https://github.com/ccin2p3/go-freeipa/pulls) to discuss.
+Feel free to open [issues](https://github.com/infra-monkey/go-freeipa/issues) or [pull requests](https://github.com/infra-monkey/go-freeipa/pulls) to discuss.
 
 ## Known issues
 
 ### pkg.go.dev website refuses to display documentation
 
-[![pkg.go.dev license restrictions](doc/go_freeipa_doc_license_issue.png)](https://pkg.go.dev/github.com/ccin2p3/go-freeipa/freeipa)
+[![pkg.go.dev license restrictions](doc/go_freeipa_doc_license_issue.png)](https://pkg.go.dev/github.com/infra-monkey/go-freeipa/freeipa)
 
 The official [pkg.go.dev license policy](https://pkg.go.dev/license-policy) does not actually accepts the [CeCILL LICENSE](https://cecill.info/index.en.html) we're using.
 

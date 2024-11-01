@@ -37,7 +37,7 @@ import inspect
 import json
 
 ERRORS_PY_URL = (
-    "https://raw.githubusercontent.com/freeipa/freeipa/ipa-4-6/ipalib/errors.py"
+    "https://raw.githubusercontent.com/freeipa/freeipa/ipa-4-12/ipalib/errors.py"
 )
 
 import_regex = re.compile(r"^(from [\w\.]+ )?import \w+( as \w+)?$")

@@ -49,7 +49,7 @@ func parseFreeIPADateTimeStr(str string) (time.Time, error) {
 	return time.Parse(LDAPGeneralizedTimeFormat, str)
 }
 
-// tryParseFreeIPADatetimeMap tries to solve https://github.com/ccin2p3/go-freeipa/issues/1
+// tryParseFreeIPADatetimeMap tries to solve https://github.com/infra-monkey/go-freeipa/issues/1
 // Krbprincipalexpiration is returned as a []interface {}
 // that is [map[__datetime__:20220428000000Z]]
 func tryParseFreeIPADatetimeMap(m map[string]interface{}) (time.Time, error) {
