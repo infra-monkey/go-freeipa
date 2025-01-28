@@ -105,6 +105,18 @@
         },
         "idnssoamname": {
           "required": false
+        },
+        "idnssoarefresh": {
+          "required": false
+        },
+        "idnssoaretry": {
+          "required": false
+        },
+        "idnssoaexpire": {
+          "required": false
+        },
+        "idnssoaminimum": {
+          "required": false
         }
       }
     }

@@ -91454,25 +91454,25 @@ SOA record serial number
 SOA refresh
 SOA record refresh time
     */
-    Idnssoarefresh int `json:"idnssoarefresh,omitempty"`
+    Idnssoarefresh *int `json:"idnssoarefresh,omitempty"`
   
     /*
 SOA retry
 SOA record retry time
     */
-    Idnssoaretry int `json:"idnssoaretry,omitempty"`
+    Idnssoaretry *int `json:"idnssoaretry,omitempty"`
   
     /*
 SOA expire
 SOA record expire time
     */
-    Idnssoaexpire int `json:"idnssoaexpire,omitempty"`
+    Idnssoaexpire *int `json:"idnssoaexpire,omitempty"`
   
     /*
 SOA minimum
 How long should negative responses be cached
     */
-    Idnssoaminimum int `json:"idnssoaminimum,omitempty"`
+    Idnssoaminimum *int `json:"idnssoaminimum,omitempty"`
   
     /*
 Time to live
@@ -91972,7 +91972,7 @@ func (out *Dnszone) UnmarshalJSON(data []byte) error {
     
   }
   
-  if true {
+  if in.Idnssoarefresh != nil {
     raw := in.Idnssoarefresh
     plainV, plainOk := raw.(int)
     sliceWrapperV, sliceWrapperOk := raw.([]interface{})
@@ -92001,13 +92001,14 @@ func (out *Dnszone) UnmarshalJSON(data []byte) error {
     }
     
       if plainOk {
-        out.Idnssoarefresh = plainV
+        out.Idnssoarefresh = &plainV
       } else if sliceOk {
         
-          if len(sliceV) != 1 {
-            return fmt.Errorf("unexpected value for field Idnssoarefresh: %v; expected exactly one element", raw)
+          if len(sliceV) == 1 {
+            out.Idnssoarefresh = &sliceV[0]
+          } else if len(sliceV) > 1 {
+            return fmt.Errorf("unexpected value for field Idnssoarefresh: %v; expected at most one element", raw)
           }
-          out.Idnssoarefresh = sliceV[0]
         
       } else {
         return fmt.Errorf("unexpected value for field Idnssoarefresh: %v (%v)", raw, reflect.TypeOf(raw))
@@ -92015,7 +92016,7 @@ func (out *Dnszone) UnmarshalJSON(data []byte) error {
     
   }
   
-  if true {
+  if in.Idnssoaretry != nil {
     raw := in.Idnssoaretry
     plainV, plainOk := raw.(int)
     sliceWrapperV, sliceWrapperOk := raw.([]interface{})
@@ -92044,13 +92045,14 @@ func (out *Dnszone) UnmarshalJSON(data []byte) error {
     }
     
       if plainOk {
-        out.Idnssoaretry = plainV
+        out.Idnssoaretry = &plainV
       } else if sliceOk {
         
-          if len(sliceV) != 1 {
-            return fmt.Errorf("unexpected value for field Idnssoaretry: %v; expected exactly one element", raw)
+          if len(sliceV) == 1 {
+            out.Idnssoaretry = &sliceV[0]
+          } else if len(sliceV) > 1 {
+            return fmt.Errorf("unexpected value for field Idnssoaretry: %v; expected at most one element", raw)
           }
-          out.Idnssoaretry = sliceV[0]
         
       } else {
         return fmt.Errorf("unexpected value for field Idnssoaretry: %v (%v)", raw, reflect.TypeOf(raw))
@@ -92058,7 +92060,7 @@ func (out *Dnszone) UnmarshalJSON(data []byte) error {
     
   }
   
-  if true {
+  if in.Idnssoaexpire != nil {
     raw := in.Idnssoaexpire
     plainV, plainOk := raw.(int)
     sliceWrapperV, sliceWrapperOk := raw.([]interface{})
@@ -92087,13 +92089,14 @@ func (out *Dnszone) UnmarshalJSON(data []byte) error {
     }
     
       if plainOk {
-        out.Idnssoaexpire = plainV
+        out.Idnssoaexpire = &plainV
       } else if sliceOk {
         
-          if len(sliceV) != 1 {
-            return fmt.Errorf("unexpected value for field Idnssoaexpire: %v; expected exactly one element", raw)
+          if len(sliceV) == 1 {
+            out.Idnssoaexpire = &sliceV[0]
+          } else if len(sliceV) > 1 {
+            return fmt.Errorf("unexpected value for field Idnssoaexpire: %v; expected at most one element", raw)
           }
-          out.Idnssoaexpire = sliceV[0]
         
       } else {
         return fmt.Errorf("unexpected value for field Idnssoaexpire: %v (%v)", raw, reflect.TypeOf(raw))
@@ -92101,7 +92104,7 @@ func (out *Dnszone) UnmarshalJSON(data []byte) error {
     
   }
   
-  if true {
+  if in.Idnssoaminimum != nil {
     raw := in.Idnssoaminimum
     plainV, plainOk := raw.(int)
     sliceWrapperV, sliceWrapperOk := raw.([]interface{})
@@ -92130,13 +92133,14 @@ func (out *Dnszone) UnmarshalJSON(data []byte) error {
     }
     
       if plainOk {
-        out.Idnssoaminimum = plainV
+        out.Idnssoaminimum = &plainV
       } else if sliceOk {
         
-          if len(sliceV) != 1 {
-            return fmt.Errorf("unexpected value for field Idnssoaminimum: %v; expected exactly one element", raw)
+          if len(sliceV) == 1 {
+            out.Idnssoaminimum = &sliceV[0]
+          } else if len(sliceV) > 1 {
+            return fmt.Errorf("unexpected value for field Idnssoaminimum: %v; expected at most one element", raw)
           }
-          out.Idnssoaminimum = sliceV[0]
         
       } else {
         return fmt.Errorf("unexpected value for field Idnssoaminimum: %v (%v)", raw, reflect.TypeOf(raw))
