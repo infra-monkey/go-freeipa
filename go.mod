@@ -1,6 +1,6 @@
 module github.com/infra-monkey/go-freeipa
 
-go 1.19
+go 1.23.0
 
 require (
 	github.com/jcmturner/gokrb5/v8 v8.4.4
@@ -14,6 +14,6 @@ require (
 	github.com/jcmturner/gofork v1.7.6 // indirect
 	github.com/jcmturner/goidentity/v6 v6.0.1 // indirect
 	github.com/jcmturner/rpc/v2 v2.0.3 // indirect
-	golang.org/x/crypto v0.6.0 // indirect
-	golang.org/x/net v0.7.0 // indirect
+	golang.org/x/crypto v0.35.0 // indirect
+	golang.org/x/net v0.21.0 // indirect
 )
