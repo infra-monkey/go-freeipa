@@ -111860,7 +111860,7 @@ Email address
 Password
 Prompt to set the user password
     */
-    Userpassword *string `json:"userpassword,omitempty"`
+    Userpassword *[]interface{} `json:"userpassword,omitempty"`
   
     /*
 
@@ -112869,14 +112869,14 @@ func (out *Stageuser) UnmarshalJSON(data []byte) error {
   
   if in.Userpassword != nil {
     raw := in.Userpassword
-    plainV, plainOk := raw.(string)
+    plainV, plainOk := raw.([]interface{})
     sliceWrapperV, sliceWrapperOk := raw.([]interface{})
-    var sliceV []string
+    var sliceV [][]interface{}
     sliceOk := sliceWrapperOk
     if sliceWrapperOk {
       for _, rawItem := range sliceWrapperV {
         
-        itemV, itemOk := rawItem.(string)
+        itemV, itemOk := rawItem.([]interface{})
         
         if !itemOk {
           

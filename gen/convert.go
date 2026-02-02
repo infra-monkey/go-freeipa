@@ -84,6 +84,8 @@ func toGoType(ipaType string) string {
 		return "interface{}"
 	case "CertificateSigningRequest":
 		return "string"
+	case "Userpassword":
+		return "[]interface{}"
 	default:
 		return ipaType
 	}
