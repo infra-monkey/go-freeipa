@@ -107,6 +107,13 @@
           "required": false
         }
       }
+    },
+    "stageuser": {
+      "params": {
+        "userpassword": {
+          "type": "Userpassword"
+        }
+      }
     }
   }
 }
