@@ -10,7 +10,7 @@ import (
   "strconv"
 )
 
-var apiVersion = "2.254"
+var apiVersion = "2.257"
 
 type request struct {
   Method string `json:"method"`
@@ -12018,6 +12018,12 @@ NetBIOS name of the IPA domain
 NetBIOS name of the IPA domain
     */
     NetbiosName *string `json:"netbios_name,omitempty"`
+  
+    /*
+IPA Service key type:size
+IPA Service key type:size
+    */
+    Ipaservicekeytypesize *string `json:"ipaservicekeytypesize,omitempty"`
   
     /*
 
@@ -42695,6 +42701,30 @@ Check if the password contains the username
     Ipapwdusercheck *bool `json:"ipapwdusercheck,omitempty"`
   
     /*
+Digit Credit
+The max credit for digits in the password.
+    */
+    Ipapwddcredit *int `json:"ipapwddcredit,omitempty"`
+  
+    /*
+Uppercase Credit
+The max credit for uppercase characters in the password.
+    */
+    Ipapwducredit *int `json:"ipapwducredit,omitempty"`
+  
+    /*
+Lowercase Credit
+The max credit for lowercase characters in the password.
+    */
+    Ipapwdlcredit *int `json:"ipapwdlcredit,omitempty"`
+  
+    /*
+Other Credit
+The max credit for other characters in the password.
+    */
+    Ipapwdocredit *int `json:"ipapwdocredit,omitempty"`
+  
+    /*
 Grace login limit
 Number of LDAP authentications allowed after expiration
     */
@@ -43022,6 +43052,30 @@ Check if the password contains the username
     Ipapwdusercheck *bool `json:"ipapwdusercheck,omitempty"`
   
     /*
+Digit Credit
+The max credit for digits in the password.
+    */
+    Ipapwddcredit *int `json:"ipapwddcredit,omitempty"`
+  
+    /*
+Uppercase Credit
+The max credit for uppercase characters in the password.
+    */
+    Ipapwducredit *int `json:"ipapwducredit,omitempty"`
+  
+    /*
+Lowercase Credit
+The max credit for lowercase characters in the password.
+    */
+    Ipapwdlcredit *int `json:"ipapwdlcredit,omitempty"`
+  
+    /*
+Other Credit
+The max credit for other characters in the password.
+    */
+    Ipapwdocredit *int `json:"ipapwdocredit,omitempty"`
+  
+    /*
 Grace login limit
 Number of LDAP authentications allowed after expiration
     */
@@ -43242,6 +43296,30 @@ User check
 Check if the password contains the username
     */
     Ipapwdusercheck *bool `json:"ipapwdusercheck,omitempty"`
+  
+    /*
+Digit Credit
+The max credit for digits in the password.
+    */
+    Ipapwddcredit *int `json:"ipapwddcredit,omitempty"`
+  
+    /*
+Uppercase Credit
+The max credit for uppercase characters in the password.
+    */
+    Ipapwducredit *int `json:"ipapwducredit,omitempty"`
+  
+    /*
+Lowercase Credit
+The max credit for lowercase characters in the password.
+    */
+    Ipapwdlcredit *int `json:"ipapwdlcredit,omitempty"`
+  
+    /*
+Other Credit
+The max credit for other characters in the password.
+    */
+    Ipapwdocredit *int `json:"ipapwdocredit,omitempty"`
   
     /*
 Grace login limit
@@ -44770,6 +44848,12 @@ member User ID override
 User ID overrides to add
     */
     Idoverrideuser *[]string `json:"idoverrideuser,omitempty"`
+  
+    /*
+member system account
+system accounts to add
+    */
+    Sysaccount *[]string `json:"sysaccount,omitempty"`
   }
 
 type roleAddMemberKwParams struct {
@@ -45487,6 +45571,12 @@ member User ID override
 User ID overrides to remove
     */
     Idoverrideuser *[]string `json:"idoverrideuser,omitempty"`
+  
+    /*
+member system account
+system accounts to remove
+    */
+    Sysaccount *[]string `json:"sysaccount,omitempty"`
   }
 
 type roleRemoveMemberKwParams struct {
@@ -62722,6 +62812,1100 @@ func (t *SudoruleShowResult) String() string {
     return fmt.Sprintf("SudoruleShowResult[failed json.Marshal: %v]", e)
   }
   return fmt.Sprintf("SudoruleShowResult%v", string(b))
+}
+
+/*
+Add a new IPA system account.
+*/
+func (c *Client) SysaccountAdd(
+  reqArgs *SysaccountAddArgs,
+  optArgs *SysaccountAddOptionalArgs, // can be nil
+) (*SysaccountAddResult, error) {
+  if reqArgs == nil {
+    return nil, fmt.Errorf("reqArgs cannot be nil")
+  }
+  kwp := sysaccountAddKwParams{
+    SysaccountAddArgs: reqArgs,
+    SysaccountAddOptionalArgs: optArgs,
+    Version: apiVersion,
+  }
+  req := request{
+    Method: "sysaccount_add",
+    Params: []interface{}{
+      []interface{}{}, &kwp},
+  }
+  readCloser, e := c.exec(&req)
+  if e != nil {
+    return nil, e
+  }
+  defer readCloser.Close()
+  var res sysaccountAddResponse
+	if e := json.NewDecoder(readCloser).Decode(&res); e != nil {
+		return nil, e
+	}
+	if res.Error != nil {
+		return nil, res.Error
+	}
+  if res.Result == nil {
+    return nil, fmt.Errorf("missing result in response")
+  }
+  return res.Result, nil
+}
+
+type SysaccountAddArgs struct {
+  
+    /*
+System account ID
+
+    */
+    UID string `json:"uid,omitempty"`
+  }
+
+type SysaccountAddOptionalArgs struct {
+  
+    /*
+Description
+A description of system account
+    */
+    Description *string `json:"description,omitempty"`
+  
+    /*
+Password
+Prompt to set the user password
+    */
+    Userpassword *string `json:"userpassword,omitempty"`
+  
+    /*
+
+Generate a random user password
+    */
+    Random *bool `json:"random,omitempty"`
+  
+    /*
+Account disabled
+
+    */
+    Nsaccountlock *bool `json:"nsaccountlock,omitempty"`
+  
+    /*
+
+Set an attribute to a name/value pair. Format is attr=value.
+For multi-valued attributes, the command replaces the values already present.
+    */
+    Setattr *[]string `json:"setattr,omitempty"`
+  
+    /*
+
+Add an attribute/value pair. Format is attr=value. The attribute
+must be part of the schema.
+    */
+    Addattr *[]string `json:"addattr,omitempty"`
+  
+    /*
+Privileged
+Allow password updates without reset
+    */
+    Privileged *bool `json:"privileged,omitempty"`
+  
+    /*
+
+Retrieve and print all attributes from the server. Affects command output.
+    */
+    All *bool `json:"all,omitempty"`
+  
+    /*
+
+Print entries as stored on the server. Only affects output format.
+    */
+    Raw *bool `json:"raw,omitempty"`
+  
+    /*
+
+Suppress processing of membership attributes.
+    */
+    NoMembers *bool `json:"no_members,omitempty"`
+  }
+
+type sysaccountAddKwParams struct {
+  *SysaccountAddArgs
+  *SysaccountAddOptionalArgs
+
+  /*
+  Automatically set.
+  Used by the server to determine whether to accept the request.
+  */
+  Version string `json:"version"`
+}
+
+type sysaccountAddResponse struct {
+	Error  *Error      `json:"error"`
+	Result *SysaccountAddResult `json:"result"`
+}
+type SysaccountAddResult struct {
+  
+  
+  
+    /*
+User-friendly description of action performed
+    (optional)
+    */
+    
+    Summary *string `json:"summary,omitempty"`
+    
+  
+    /*
+
+    (required)
+    */
+    
+    Result Sysaccount `json:"result,omitempty"`
+    
+  
+    /*
+The primary_key value of the entry, e.g. 'jdoe' for a user
+    (required)
+    */
+    
+    Value string `json:"value,omitempty"`
+    
+  }
+
+func (t *SysaccountAddResult) String() string {
+  if t == nil {
+    return "<nil>"
+  }
+  b, e := json.Marshal(t)
+  if e != nil {
+    return fmt.Sprintf("SysaccountAddResult[failed json.Marshal: %v]", e)
+  }
+  return fmt.Sprintf("SysaccountAddResult%v", string(b))
+}
+
+/*
+Delete an IPA system account.
+*/
+func (c *Client) SysaccountDel(
+  reqArgs *SysaccountDelArgs,
+  optArgs *SysaccountDelOptionalArgs, // can be nil
+) (*SysaccountDelResult, error) {
+  if reqArgs == nil {
+    return nil, fmt.Errorf("reqArgs cannot be nil")
+  }
+  kwp := sysaccountDelKwParams{
+    SysaccountDelArgs: reqArgs,
+    SysaccountDelOptionalArgs: optArgs,
+    Version: apiVersion,
+  }
+  req := request{
+    Method: "sysaccount_del",
+    Params: []interface{}{
+      []interface{}{}, &kwp},
+  }
+  readCloser, e := c.exec(&req)
+  if e != nil {
+    return nil, e
+  }
+  defer readCloser.Close()
+  var res sysaccountDelResponse
+	if e := json.NewDecoder(readCloser).Decode(&res); e != nil {
+		return nil, e
+	}
+	if res.Error != nil {
+		return nil, res.Error
+	}
+  if res.Result == nil {
+    return nil, fmt.Errorf("missing result in response")
+  }
+  return res.Result, nil
+}
+
+type SysaccountDelArgs struct {
+  
+    /*
+System account ID
+
+    */
+    UID []string `json:"uid,omitempty"`
+  }
+
+type SysaccountDelOptionalArgs struct {
+  
+    /*
+
+Continuous mode: Don't stop on errors.
+    */
+    Continue *bool `json:"continue,omitempty"`
+  }
+
+type sysaccountDelKwParams struct {
+  *SysaccountDelArgs
+  *SysaccountDelOptionalArgs
+
+  /*
+  Automatically set.
+  Used by the server to determine whether to accept the request.
+  */
+  Version string `json:"version"`
+}
+
+type sysaccountDelResponse struct {
+	Error  *Error      `json:"error"`
+	Result *SysaccountDelResult `json:"result"`
+}
+type SysaccountDelResult struct {
+  
+  
+  
+    /*
+User-friendly description of action performed
+    (optional)
+    */
+    
+    Summary *string `json:"summary,omitempty"`
+    
+  
+    /*
+List of deletions that failed
+    (required)
+    */
+    
+    Result interface{} `json:"result,omitempty"`
+    
+  
+    /*
+
+    (required)
+    */
+    
+    Value []string `json:"value,omitempty"`
+    
+  }
+
+func (t *SysaccountDelResult) String() string {
+  if t == nil {
+    return "<nil>"
+  }
+  b, e := json.Marshal(t)
+  if e != nil {
+    return fmt.Sprintf("SysaccountDelResult[failed json.Marshal: %v]", e)
+  }
+  return fmt.Sprintf("SysaccountDelResult%v", string(b))
+}
+
+/*
+Disable a system account.
+*/
+func (c *Client) SysaccountDisable(
+  reqArgs *SysaccountDisableArgs,
+  optArgs *SysaccountDisableOptionalArgs, // can be nil
+) (*SysaccountDisableResult, error) {
+  if reqArgs == nil {
+    return nil, fmt.Errorf("reqArgs cannot be nil")
+  }
+  kwp := sysaccountDisableKwParams{
+    SysaccountDisableArgs: reqArgs,
+    SysaccountDisableOptionalArgs: optArgs,
+    Version: apiVersion,
+  }
+  req := request{
+    Method: "sysaccount_disable",
+    Params: []interface{}{
+      []interface{}{}, &kwp},
+  }
+  readCloser, e := c.exec(&req)
+  if e != nil {
+    return nil, e
+  }
+  defer readCloser.Close()
+  var res sysaccountDisableResponse
+	if e := json.NewDecoder(readCloser).Decode(&res); e != nil {
+		return nil, e
+	}
+	if res.Error != nil {
+		return nil, res.Error
+	}
+  if res.Result == nil {
+    return nil, fmt.Errorf("missing result in response")
+  }
+  return res.Result, nil
+}
+
+type SysaccountDisableArgs struct {
+  
+    /*
+System account ID
+
+    */
+    UID string `json:"uid,omitempty"`
+  }
+
+type SysaccountDisableOptionalArgs struct {
+  }
+
+type sysaccountDisableKwParams struct {
+  *SysaccountDisableArgs
+  *SysaccountDisableOptionalArgs
+
+  /*
+  Automatically set.
+  Used by the server to determine whether to accept the request.
+  */
+  Version string `json:"version"`
+}
+
+type sysaccountDisableResponse struct {
+	Error  *Error      `json:"error"`
+	Result *SysaccountDisableResult `json:"result"`
+}
+type SysaccountDisableResult struct {
+  
+  
+  
+    /*
+User-friendly description of action performed
+    (optional)
+    */
+    
+    Summary *string `json:"summary,omitempty"`
+    
+  
+    /*
+True means the operation was successful
+    (required)
+    */
+    
+    Result bool `json:"result,omitempty"`
+    
+  
+    /*
+The primary_key value of the entry, e.g. 'jdoe' for a user
+    (required)
+    */
+    
+    Value string `json:"value,omitempty"`
+    
+  }
+
+func (t *SysaccountDisableResult) String() string {
+  if t == nil {
+    return "<nil>"
+  }
+  b, e := json.Marshal(t)
+  if e != nil {
+    return fmt.Sprintf("SysaccountDisableResult[failed json.Marshal: %v]", e)
+  }
+  return fmt.Sprintf("SysaccountDisableResult%v", string(b))
+}
+
+/*
+Enable a system account.
+*/
+func (c *Client) SysaccountEnable(
+  reqArgs *SysaccountEnableArgs,
+  optArgs *SysaccountEnableOptionalArgs, // can be nil
+) (*SysaccountEnableResult, error) {
+  if reqArgs == nil {
+    return nil, fmt.Errorf("reqArgs cannot be nil")
+  }
+  kwp := sysaccountEnableKwParams{
+    SysaccountEnableArgs: reqArgs,
+    SysaccountEnableOptionalArgs: optArgs,
+    Version: apiVersion,
+  }
+  req := request{
+    Method: "sysaccount_enable",
+    Params: []interface{}{
+      []interface{}{}, &kwp},
+  }
+  readCloser, e := c.exec(&req)
+  if e != nil {
+    return nil, e
+  }
+  defer readCloser.Close()
+  var res sysaccountEnableResponse
+	if e := json.NewDecoder(readCloser).Decode(&res); e != nil {
+		return nil, e
+	}
+	if res.Error != nil {
+		return nil, res.Error
+	}
+  if res.Result == nil {
+    return nil, fmt.Errorf("missing result in response")
+  }
+  return res.Result, nil
+}
+
+type SysaccountEnableArgs struct {
+  
+    /*
+System account ID
+
+    */
+    UID string `json:"uid,omitempty"`
+  }
+
+type SysaccountEnableOptionalArgs struct {
+  }
+
+type sysaccountEnableKwParams struct {
+  *SysaccountEnableArgs
+  *SysaccountEnableOptionalArgs
+
+  /*
+  Automatically set.
+  Used by the server to determine whether to accept the request.
+  */
+  Version string `json:"version"`
+}
+
+type sysaccountEnableResponse struct {
+	Error  *Error      `json:"error"`
+	Result *SysaccountEnableResult `json:"result"`
+}
+type SysaccountEnableResult struct {
+  
+  
+  
+    /*
+User-friendly description of action performed
+    (optional)
+    */
+    
+    Summary *string `json:"summary,omitempty"`
+    
+  
+    /*
+True means the operation was successful
+    (required)
+    */
+    
+    Result bool `json:"result,omitempty"`
+    
+  
+    /*
+The primary_key value of the entry, e.g. 'jdoe' for a user
+    (required)
+    */
+    
+    Value string `json:"value,omitempty"`
+    
+  }
+
+func (t *SysaccountEnableResult) String() string {
+  if t == nil {
+    return "<nil>"
+  }
+  b, e := json.Marshal(t)
+  if e != nil {
+    return fmt.Sprintf("SysaccountEnableResult[failed json.Marshal: %v]", e)
+  }
+  return fmt.Sprintf("SysaccountEnableResult%v", string(b))
+}
+
+/*
+Search for IPA system accounts.
+*/
+func (c *Client) SysaccountFind(
+  criteria string, // A string searched in all relevant object attributes
+  reqArgs *SysaccountFindArgs,
+  optArgs *SysaccountFindOptionalArgs, // can be nil
+) (*SysaccountFindResult, error) {
+  if reqArgs == nil {
+    return nil, fmt.Errorf("reqArgs cannot be nil")
+  }
+  kwp := sysaccountFindKwParams{
+    SysaccountFindArgs: reqArgs,
+    SysaccountFindOptionalArgs: optArgs,
+    Version: apiVersion,
+  }
+  req := request{
+    Method: "sysaccount_find",
+    Params: []interface{}{
+      []interface{}{criteria, }, &kwp},
+  }
+  readCloser, e := c.exec(&req)
+  if e != nil {
+    return nil, e
+  }
+  defer readCloser.Close()
+  var res sysaccountFindResponse
+	if e := json.NewDecoder(readCloser).Decode(&res); e != nil {
+		return nil, e
+	}
+	if res.Error != nil {
+		return nil, res.Error
+	}
+  if res.Result == nil {
+    return nil, fmt.Errorf("missing result in response")
+  }
+  return res.Result, nil
+}
+
+type SysaccountFindArgs struct {
+  }
+
+type SysaccountFindOptionalArgs struct {
+  
+    /*
+System account ID
+
+    */
+    UID *string `json:"uid,omitempty"`
+  
+    /*
+Description
+A description of system account
+    */
+    Description *string `json:"description,omitempty"`
+  
+    /*
+Account disabled
+
+    */
+    Nsaccountlock *bool `json:"nsaccountlock,omitempty"`
+  
+    /*
+Time Limit
+Time limit of search in seconds (0 is unlimited)
+    */
+    Timelimit *int `json:"timelimit,omitempty"`
+  
+    /*
+Size Limit
+Maximum number of entries returned (0 is unlimited)
+    */
+    Sizelimit *int `json:"sizelimit,omitempty"`
+  
+    /*
+
+Retrieve and print all attributes from the server. Affects command output.
+    */
+    All *bool `json:"all,omitempty"`
+  
+    /*
+
+Print entries as stored on the server. Only affects output format.
+    */
+    Raw *bool `json:"raw,omitempty"`
+  
+    /*
+
+Suppress processing of membership attributes.
+    */
+    NoMembers *bool `json:"no_members,omitempty"`
+  
+    /*
+Primary key only
+Results should contain primary key attribute only ("login")
+    */
+    PkeyOnly *bool `json:"pkey_only,omitempty"`
+  }
+
+type sysaccountFindKwParams struct {
+  *SysaccountFindArgs
+  *SysaccountFindOptionalArgs
+
+  /*
+  Automatically set.
+  Used by the server to determine whether to accept the request.
+  */
+  Version string `json:"version"`
+}
+
+type sysaccountFindResponse struct {
+	Error  *Error      `json:"error"`
+	Result *SysaccountFindResult `json:"result"`
+}
+type SysaccountFindResult struct {
+  
+  
+  
+    /*
+User-friendly description of action performed
+    (optional)
+    */
+    
+    Summary *string `json:"summary,omitempty"`
+    
+  
+    /*
+
+    (required)
+    */
+    
+    Result []Sysaccount `json:"result,omitempty"`
+    
+  
+    /*
+Number of entries returned
+    (required)
+    */
+    
+    Count int `json:"count,omitempty"`
+    
+  
+    /*
+True if not all results were returned
+    (required)
+    */
+    
+    Truncated bool `json:"truncated,omitempty"`
+    
+  }
+
+func (t *SysaccountFindResult) String() string {
+  if t == nil {
+    return "<nil>"
+  }
+  b, e := json.Marshal(t)
+  if e != nil {
+    return fmt.Sprintf("SysaccountFindResult[failed json.Marshal: %v]", e)
+  }
+  return fmt.Sprintf("SysaccountFindResult%v", string(b))
+}
+
+/*
+Modify an existing IPA system account.
+*/
+func (c *Client) SysaccountMod(
+  reqArgs *SysaccountModArgs,
+  optArgs *SysaccountModOptionalArgs, // can be nil
+) (*SysaccountModResult, error) {
+  if reqArgs == nil {
+    return nil, fmt.Errorf("reqArgs cannot be nil")
+  }
+  kwp := sysaccountModKwParams{
+    SysaccountModArgs: reqArgs,
+    SysaccountModOptionalArgs: optArgs,
+    Version: apiVersion,
+  }
+  req := request{
+    Method: "sysaccount_mod",
+    Params: []interface{}{
+      []interface{}{}, &kwp},
+  }
+  readCloser, e := c.exec(&req)
+  if e != nil {
+    return nil, e
+  }
+  defer readCloser.Close()
+  var res sysaccountModResponse
+	if e := json.NewDecoder(readCloser).Decode(&res); e != nil {
+		return nil, e
+	}
+	if res.Error != nil {
+		return nil, res.Error
+	}
+  if res.Result == nil {
+    return nil, fmt.Errorf("missing result in response")
+  }
+  return res.Result, nil
+}
+
+type SysaccountModArgs struct {
+  
+    /*
+System account ID
+
+    */
+    UID string `json:"uid,omitempty"`
+  }
+
+type SysaccountModOptionalArgs struct {
+  
+    /*
+Description
+A description of system account
+    */
+    Description *string `json:"description,omitempty"`
+  
+    /*
+Password
+Prompt to set the user password
+    */
+    Userpassword *string `json:"userpassword,omitempty"`
+  
+    /*
+
+Generate a random user password
+    */
+    Random *bool `json:"random,omitempty"`
+  
+    /*
+Account disabled
+
+    */
+    Nsaccountlock *bool `json:"nsaccountlock,omitempty"`
+  
+    /*
+
+Set an attribute to a name/value pair. Format is attr=value.
+For multi-valued attributes, the command replaces the values already present.
+    */
+    Setattr *[]string `json:"setattr,omitempty"`
+  
+    /*
+
+Add an attribute/value pair. Format is attr=value. The attribute
+must be part of the schema.
+    */
+    Addattr *[]string `json:"addattr,omitempty"`
+  
+    /*
+
+Delete an attribute/value pair. The option will be evaluated
+last, after all sets and adds.
+    */
+    Delattr *[]string `json:"delattr,omitempty"`
+  
+    /*
+Rights
+Display the access rights of this entry (requires --all). See ipa man page for details.
+    */
+    Rights *bool `json:"rights,omitempty"`
+  
+    /*
+Privileged
+Allow password updates without reset
+    */
+    Privileged *bool `json:"privileged,omitempty"`
+  
+    /*
+
+Retrieve and print all attributes from the server. Affects command output.
+    */
+    All *bool `json:"all,omitempty"`
+  
+    /*
+
+Print entries as stored on the server. Only affects output format.
+    */
+    Raw *bool `json:"raw,omitempty"`
+  
+    /*
+
+Suppress processing of membership attributes.
+    */
+    NoMembers *bool `json:"no_members,omitempty"`
+  }
+
+type sysaccountModKwParams struct {
+  *SysaccountModArgs
+  *SysaccountModOptionalArgs
+
+  /*
+  Automatically set.
+  Used by the server to determine whether to accept the request.
+  */
+  Version string `json:"version"`
+}
+
+type sysaccountModResponse struct {
+	Error  *Error      `json:"error"`
+	Result *SysaccountModResult `json:"result"`
+}
+type SysaccountModResult struct {
+  
+  
+  
+    /*
+User-friendly description of action performed
+    (optional)
+    */
+    
+    Summary *string `json:"summary,omitempty"`
+    
+  
+    /*
+
+    (required)
+    */
+    
+    Result Sysaccount `json:"result,omitempty"`
+    
+  
+    /*
+The primary_key value of the entry, e.g. 'jdoe' for a user
+    (required)
+    */
+    
+    Value string `json:"value,omitempty"`
+    
+  }
+
+func (t *SysaccountModResult) String() string {
+  if t == nil {
+    return "<nil>"
+  }
+  b, e := json.Marshal(t)
+  if e != nil {
+    return fmt.Sprintf("SysaccountModResult[failed json.Marshal: %v]", e)
+  }
+  return fmt.Sprintf("SysaccountModResult%v", string(b))
+}
+
+/*
+Manage the system account policy.
+*/
+func (c *Client) SysaccountPolicy(
+  reqArgs *SysaccountPolicyArgs,
+  optArgs *SysaccountPolicyOptionalArgs, // can be nil
+) (*SysaccountPolicyResult, error) {
+  if reqArgs == nil {
+    return nil, fmt.Errorf("reqArgs cannot be nil")
+  }
+  kwp := sysaccountPolicyKwParams{
+    SysaccountPolicyArgs: reqArgs,
+    SysaccountPolicyOptionalArgs: optArgs,
+    Version: apiVersion,
+  }
+  req := request{
+    Method: "sysaccount_policy",
+    Params: []interface{}{
+      []interface{}{}, &kwp},
+  }
+  readCloser, e := c.exec(&req)
+  if e != nil {
+    return nil, e
+  }
+  defer readCloser.Close()
+  var res sysaccountPolicyResponse
+	if e := json.NewDecoder(readCloser).Decode(&res); e != nil {
+		return nil, e
+	}
+	if res.Error != nil {
+		return nil, res.Error
+	}
+  if res.Result == nil {
+    return nil, fmt.Errorf("missing result in response")
+  }
+  return res.Result, nil
+}
+
+type SysaccountPolicyArgs struct {
+  
+    /*
+System account ID
+
+    */
+    UID string `json:"uid,omitempty"`
+  }
+
+type SysaccountPolicyOptionalArgs struct {
+  
+    /*
+Rights
+Display the access rights of this entry (requires --all). See ipa man page for details.
+    */
+    Rights *bool `json:"rights,omitempty"`
+  
+    /*
+Privileged
+Allow password updates without reset
+    */
+    Privileged *bool `json:"privileged,omitempty"`
+  
+    /*
+
+Retrieve and print all attributes from the server. Affects command output.
+    */
+    All *bool `json:"all,omitempty"`
+  
+    /*
+
+Print entries as stored on the server. Only affects output format.
+    */
+    Raw *bool `json:"raw,omitempty"`
+  
+    /*
+
+Suppress processing of membership attributes.
+    */
+    NoMembers *bool `json:"no_members,omitempty"`
+  }
+
+type sysaccountPolicyKwParams struct {
+  *SysaccountPolicyArgs
+  *SysaccountPolicyOptionalArgs
+
+  /*
+  Automatically set.
+  Used by the server to determine whether to accept the request.
+  */
+  Version string `json:"version"`
+}
+
+type sysaccountPolicyResponse struct {
+	Error  *Error      `json:"error"`
+	Result *SysaccountPolicyResult `json:"result"`
+}
+type SysaccountPolicyResult struct {
+  
+  
+  
+    /*
+User-friendly description of action performed
+    (optional)
+    */
+    
+    Summary *string `json:"summary,omitempty"`
+    
+  
+    /*
+
+    (required)
+    */
+    
+    Result interface{} `json:"result,omitempty"`
+    
+  
+    /*
+The primary_key value of the entry, e.g. 'jdoe' for a user
+    (required)
+    */
+    
+    Value string `json:"value,omitempty"`
+    
+  }
+
+func (t *SysaccountPolicyResult) String() string {
+  if t == nil {
+    return "<nil>"
+  }
+  b, e := json.Marshal(t)
+  if e != nil {
+    return fmt.Sprintf("SysaccountPolicyResult[failed json.Marshal: %v]", e)
+  }
+  return fmt.Sprintf("SysaccountPolicyResult%v", string(b))
+}
+
+/*
+Display information about an IPA system account.
+*/
+func (c *Client) SysaccountShow(
+  reqArgs *SysaccountShowArgs,
+  optArgs *SysaccountShowOptionalArgs, // can be nil
+) (*SysaccountShowResult, error) {
+  if reqArgs == nil {
+    return nil, fmt.Errorf("reqArgs cannot be nil")
+  }
+  kwp := sysaccountShowKwParams{
+    SysaccountShowArgs: reqArgs,
+    SysaccountShowOptionalArgs: optArgs,
+    Version: apiVersion,
+  }
+  req := request{
+    Method: "sysaccount_show",
+    Params: []interface{}{
+      []interface{}{}, &kwp},
+  }
+  readCloser, e := c.exec(&req)
+  if e != nil {
+    return nil, e
+  }
+  defer readCloser.Close()
+  var res sysaccountShowResponse
+	if e := json.NewDecoder(readCloser).Decode(&res); e != nil {
+		return nil, e
+	}
+	if res.Error != nil {
+		return nil, res.Error
+	}
+  if res.Result == nil {
+    return nil, fmt.Errorf("missing result in response")
+  }
+  return res.Result, nil
+}
+
+type SysaccountShowArgs struct {
+  
+    /*
+System account ID
+
+    */
+    UID string `json:"uid,omitempty"`
+  }
+
+type SysaccountShowOptionalArgs struct {
+  
+    /*
+Rights
+Display the access rights of this entry (requires --all). See ipa man page for details.
+    */
+    Rights *bool `json:"rights,omitempty"`
+  
+    /*
+
+Retrieve and print all attributes from the server. Affects command output.
+    */
+    All *bool `json:"all,omitempty"`
+  
+    /*
+
+Print entries as stored on the server. Only affects output format.
+    */
+    Raw *bool `json:"raw,omitempty"`
+  
+    /*
+
+Suppress processing of membership attributes.
+    */
+    NoMembers *bool `json:"no_members,omitempty"`
+  }
+
+type sysaccountShowKwParams struct {
+  *SysaccountShowArgs
+  *SysaccountShowOptionalArgs
+
+  /*
+  Automatically set.
+  Used by the server to determine whether to accept the request.
+  */
+  Version string `json:"version"`
+}
+
+type sysaccountShowResponse struct {
+	Error  *Error      `json:"error"`
+	Result *SysaccountShowResult `json:"result"`
+}
+type SysaccountShowResult struct {
+  
+  
+  
+    /*
+User-friendly description of action performed
+    (optional)
+    */
+    
+    Summary *string `json:"summary,omitempty"`
+    
+  
+    /*
+
+    (required)
+    */
+    
+    Result Sysaccount `json:"result,omitempty"`
+    
+  
+    /*
+The primary_key value of the entry, e.g. 'jdoe' for a user
+    (required)
+    */
+    
+    Value string `json:"value,omitempty"`
+    
+  }
+
+func (t *SysaccountShowResult) String() string {
+  if t == nil {
+    return "<nil>"
+  }
+  b, e := json.Marshal(t)
+  if e != nil {
+    return fmt.Sprintf("SysaccountShowResult[failed json.Marshal: %v]", e)
+  }
+  return fmt.Sprintf("SysaccountShowResult%v", string(b))
 }
 
 /*
@@ -80112,6 +81296,12 @@ HSM token name
 The HSM token name storing the CA private keys
     */
     HsmTokenName *string `json:"hsm_token_name,omitempty"`
+  
+    /*
+IPA Service key type:size
+IPA Service key type:size
+    */
+    Ipaservicekeytypesize *string `json:"ipaservicekeytypesize,omitempty"`
   }
 
 func (t *Config) String() string {
@@ -80200,6 +81390,8 @@ type jsonConfig struct {
     NetbiosName interface{} `json:"netbios_name"`
   
     HsmTokenName interface{} `json:"hsm_token_name"`
+  
+    Ipaservicekeytypesize interface{} `json:"ipaservicekeytypesize"`
   }
 
 func (out *Config) UnmarshalJSON(data []byte) error {
@@ -81682,6 +82874,46 @@ func (out *Config) UnmarshalJSON(data []byte) error {
         
       } else {
         return fmt.Errorf("unexpected value for field HsmTokenName: %v (%v)", raw, reflect.TypeOf(raw))
+      }
+    
+  }
+  
+  if in.Ipaservicekeytypesize != nil {
+    raw := in.Ipaservicekeytypesize
+    plainV, plainOk := raw.(string)
+    sliceWrapperV, sliceWrapperOk := raw.([]interface{})
+    var sliceV []string
+    sliceOk := sliceWrapperOk
+    if sliceWrapperOk {
+      for _, rawItem := range sliceWrapperV {
+        
+        itemV, itemOk := rawItem.(string)
+        
+        if !itemOk {
+          
+          sliceOk = false
+          break
+          
+
+        }
+        
+        sliceV = append(sliceV, itemV)
+        
+      }
+    }
+    
+      if plainOk {
+        out.Ipaservicekeytypesize = &plainV
+      } else if sliceOk {
+        
+          if len(sliceV) == 1 {
+            out.Ipaservicekeytypesize = &sliceV[0]
+          } else if len(sliceV) > 1 {
+            return fmt.Errorf("unexpected value for field Ipaservicekeytypesize: %v; expected at most one element", raw)
+          }
+        
+      } else {
+        return fmt.Errorf("unexpected value for field Ipaservicekeytypesize: %v (%v)", raw, reflect.TypeOf(raw))
       }
     
   }
@@ -106607,6 +107839,30 @@ Check if the password contains the username
     Ipapwdusercheck *bool `json:"ipapwdusercheck,omitempty"`
   
     /*
+Digit Credit
+The max credit for digits in the password.
+    */
+    Ipapwddcredit *int `json:"ipapwddcredit,omitempty"`
+  
+    /*
+Uppercase Credit
+The max credit for uppercase characters in the password.
+    */
+    Ipapwducredit *int `json:"ipapwducredit,omitempty"`
+  
+    /*
+Lowercase Credit
+The max credit for lowercase characters in the password.
+    */
+    Ipapwdlcredit *int `json:"ipapwdlcredit,omitempty"`
+  
+    /*
+Other Credit
+The max credit for other characters in the password.
+    */
+    Ipapwdocredit *int `json:"ipapwdocredit,omitempty"`
+  
+    /*
 Grace login limit
 Number of LDAP authentications allowed after expiration
     */
@@ -106653,6 +107909,14 @@ type jsonPwpolicy struct {
     Ipapwddictcheck interface{} `json:"ipapwddictcheck"`
   
     Ipapwdusercheck interface{} `json:"ipapwdusercheck"`
+  
+    Ipapwddcredit interface{} `json:"ipapwddcredit"`
+  
+    Ipapwducredit interface{} `json:"ipapwducredit"`
+  
+    Ipapwdlcredit interface{} `json:"ipapwdlcredit"`
+  
+    Ipapwdocredit interface{} `json:"ipapwdocredit"`
   
     Passwordgracelimit interface{} `json:"passwordgracelimit"`
   }
@@ -107292,6 +108556,182 @@ func (out *Pwpolicy) UnmarshalJSON(data []byte) error {
     
   }
   
+  if in.Ipapwddcredit != nil {
+    raw := in.Ipapwddcredit
+    plainV, plainOk := raw.(int)
+    sliceWrapperV, sliceWrapperOk := raw.([]interface{})
+    var sliceV []int
+    sliceOk := sliceWrapperOk
+    if sliceWrapperOk {
+      for _, rawItem := range sliceWrapperV {
+        
+        itemV, itemOk := rawItem.(string)
+        
+        if !itemOk {
+          
+          sliceOk = false
+          break
+          
+
+        }
+        
+        intV, e := strconv.Atoi(itemV)
+        if e != nil {
+          return fmt.Errorf("unexpected value for field Ipapwddcredit: %v (hit string which couldn't be converted to int)", raw)
+        }
+        sliceV = append(sliceV, intV)
+        
+      }
+    }
+    
+      if plainOk {
+        out.Ipapwddcredit = &plainV
+      } else if sliceOk {
+        
+          if len(sliceV) == 1 {
+            out.Ipapwddcredit = &sliceV[0]
+          } else if len(sliceV) > 1 {
+            return fmt.Errorf("unexpected value for field Ipapwddcredit: %v; expected at most one element", raw)
+          }
+        
+      } else {
+        return fmt.Errorf("unexpected value for field Ipapwddcredit: %v (%v)", raw, reflect.TypeOf(raw))
+      }
+    
+  }
+  
+  if in.Ipapwducredit != nil {
+    raw := in.Ipapwducredit
+    plainV, plainOk := raw.(int)
+    sliceWrapperV, sliceWrapperOk := raw.([]interface{})
+    var sliceV []int
+    sliceOk := sliceWrapperOk
+    if sliceWrapperOk {
+      for _, rawItem := range sliceWrapperV {
+        
+        itemV, itemOk := rawItem.(string)
+        
+        if !itemOk {
+          
+          sliceOk = false
+          break
+          
+
+        }
+        
+        intV, e := strconv.Atoi(itemV)
+        if e != nil {
+          return fmt.Errorf("unexpected value for field Ipapwducredit: %v (hit string which couldn't be converted to int)", raw)
+        }
+        sliceV = append(sliceV, intV)
+        
+      }
+    }
+    
+      if plainOk {
+        out.Ipapwducredit = &plainV
+      } else if sliceOk {
+        
+          if len(sliceV) == 1 {
+            out.Ipapwducredit = &sliceV[0]
+          } else if len(sliceV) > 1 {
+            return fmt.Errorf("unexpected value for field Ipapwducredit: %v; expected at most one element", raw)
+          }
+        
+      } else {
+        return fmt.Errorf("unexpected value for field Ipapwducredit: %v (%v)", raw, reflect.TypeOf(raw))
+      }
+    
+  }
+  
+  if in.Ipapwdlcredit != nil {
+    raw := in.Ipapwdlcredit
+    plainV, plainOk := raw.(int)
+    sliceWrapperV, sliceWrapperOk := raw.([]interface{})
+    var sliceV []int
+    sliceOk := sliceWrapperOk
+    if sliceWrapperOk {
+      for _, rawItem := range sliceWrapperV {
+        
+        itemV, itemOk := rawItem.(string)
+        
+        if !itemOk {
+          
+          sliceOk = false
+          break
+          
+
+        }
+        
+        intV, e := strconv.Atoi(itemV)
+        if e != nil {
+          return fmt.Errorf("unexpected value for field Ipapwdlcredit: %v (hit string which couldn't be converted to int)", raw)
+        }
+        sliceV = append(sliceV, intV)
+        
+      }
+    }
+    
+      if plainOk {
+        out.Ipapwdlcredit = &plainV
+      } else if sliceOk {
+        
+          if len(sliceV) == 1 {
+            out.Ipapwdlcredit = &sliceV[0]
+          } else if len(sliceV) > 1 {
+            return fmt.Errorf("unexpected value for field Ipapwdlcredit: %v; expected at most one element", raw)
+          }
+        
+      } else {
+        return fmt.Errorf("unexpected value for field Ipapwdlcredit: %v (%v)", raw, reflect.TypeOf(raw))
+      }
+    
+  }
+  
+  if in.Ipapwdocredit != nil {
+    raw := in.Ipapwdocredit
+    plainV, plainOk := raw.(int)
+    sliceWrapperV, sliceWrapperOk := raw.([]interface{})
+    var sliceV []int
+    sliceOk := sliceWrapperOk
+    if sliceWrapperOk {
+      for _, rawItem := range sliceWrapperV {
+        
+        itemV, itemOk := rawItem.(string)
+        
+        if !itemOk {
+          
+          sliceOk = false
+          break
+          
+
+        }
+        
+        intV, e := strconv.Atoi(itemV)
+        if e != nil {
+          return fmt.Errorf("unexpected value for field Ipapwdocredit: %v (hit string which couldn't be converted to int)", raw)
+        }
+        sliceV = append(sliceV, intV)
+        
+      }
+    }
+    
+      if plainOk {
+        out.Ipapwdocredit = &plainV
+      } else if sliceOk {
+        
+          if len(sliceV) == 1 {
+            out.Ipapwdocredit = &sliceV[0]
+          } else if len(sliceV) > 1 {
+            return fmt.Errorf("unexpected value for field Ipapwdocredit: %v; expected at most one element", raw)
+          }
+        
+      } else {
+        return fmt.Errorf("unexpected value for field Ipapwdocredit: %v (%v)", raw, reflect.TypeOf(raw))
+      }
+    
+  }
+  
   if in.Passwordgracelimit != nil {
     raw := in.Passwordgracelimit
     plainV, plainOk := raw.(int)
@@ -107927,6 +109367,12 @@ Member ID user overrides
 
     */
     MemberIdoverrideuser *[]string `json:"member_idoverrideuser,omitempty"`
+  
+    /*
+Member system accounts
+
+    */
+    MemberSysaccount *[]string `json:"member_sysaccount,omitempty"`
   }
 
 func (t *Role) String() string {
@@ -107959,6 +109405,8 @@ type jsonRole struct {
     MemberService interface{} `json:"member_service"`
   
     MemberIdoverrideuser interface{} `json:"member_idoverrideuser"`
+  
+    MemberSysaccount interface{} `json:"member_sysaccount"`
   }
 
 func (out *Role) UnmarshalJSON(data []byte) error {
@@ -108287,6 +109735,41 @@ func (out *Role) UnmarshalJSON(data []byte) error {
         out.MemberIdoverrideuser = &sliceV
       } else {
         return fmt.Errorf("unexpected value for field MemberIdoverrideuser: %v (%v)", raw, reflect.TypeOf(raw))
+      }
+    
+  }
+  
+  if in.MemberSysaccount != nil {
+    raw := in.MemberSysaccount
+    plainV, plainOk := raw.(string)
+    sliceWrapperV, sliceWrapperOk := raw.([]interface{})
+    var sliceV []string
+    sliceOk := sliceWrapperOk
+    if sliceWrapperOk {
+      for _, rawItem := range sliceWrapperV {
+        
+        itemV, itemOk := rawItem.(string)
+        
+        if !itemOk {
+          
+          sliceOk = false
+          break
+          
+
+        }
+        
+        sliceV = append(sliceV, itemV)
+        
+      }
+    }
+    
+      if plainOk {
+        out.MemberSysaccount = &[]string{plainV}
+      } else if sliceOk {
+        
+        out.MemberSysaccount = &sliceV
+      } else {
+        return fmt.Errorf("unexpected value for field MemberSysaccount: %v (%v)", raw, reflect.TypeOf(raw))
       }
     
   }
@@ -116784,6 +118267,448 @@ func (out *Sudorule) UnmarshalJSON(data []byte) error {
         out.Ipasudoopt = &sliceV
       } else {
         return fmt.Errorf("unexpected value for field Ipasudoopt: %v (%v)", raw, reflect.TypeOf(raw))
+      }
+    
+  }
+  return nil
+}
+
+type Sysaccount struct {
+  
+    /*
+System account ID
+
+    */
+    UID string `json:"uid,omitempty"`
+  
+    /*
+Description
+A description of system account
+    */
+    Description *string `json:"description,omitempty"`
+  
+    /*
+Password
+Prompt to set the user password
+    */
+    Userpassword *string `json:"userpassword,omitempty"`
+  
+    /*
+
+Generate a random user password
+    */
+    Random *bool `json:"random,omitempty"`
+  
+    /*
+Random password
+
+    */
+    Randompassword *string `json:"randompassword,omitempty"`
+  
+    /*
+Account disabled
+
+    */
+    Nsaccountlock *bool `json:"nsaccountlock,omitempty"`
+  
+    /*
+Password
+
+    */
+    HasPassword *bool `json:"has_password,omitempty"`
+  
+    /*
+Roles
+
+    */
+    MemberofRole *[]string `json:"memberof_role,omitempty"`
+  }
+
+func (t *Sysaccount) String() string {
+  if t == nil {
+    return "<nil>"
+  }
+  b, e := json.Marshal(t)
+  if e != nil {
+    return fmt.Sprintf("Sysaccount[failed json.Marshal: %v]", e)
+  }
+  return fmt.Sprintf("Sysaccount%v", string(b))
+}
+
+type jsonSysaccount struct {
+  
+    UID interface{} `json:"uid"`
+  
+    Description interface{} `json:"description"`
+  
+    Userpassword interface{} `json:"userpassword"`
+  
+    Random interface{} `json:"random"`
+  
+    Randompassword interface{} `json:"randompassword"`
+  
+    Nsaccountlock interface{} `json:"nsaccountlock"`
+  
+    HasPassword interface{} `json:"has_password"`
+  
+    MemberofRole interface{} `json:"memberof_role"`
+  }
+
+func (out *Sysaccount) UnmarshalJSON(data []byte) error {
+  var in jsonSysaccount
+  if e := json.Unmarshal(data, &in); e != nil {
+    return e
+  }
+  
+  if true {
+    raw := in.UID
+    plainV, plainOk := raw.(string)
+    sliceWrapperV, sliceWrapperOk := raw.([]interface{})
+    var sliceV []string
+    sliceOk := sliceWrapperOk
+    if sliceWrapperOk {
+      for _, rawItem := range sliceWrapperV {
+        
+        itemV, itemOk := rawItem.(string)
+        
+        if !itemOk {
+          
+          sliceOk = false
+          break
+          
+
+        }
+        
+        sliceV = append(sliceV, itemV)
+        
+      }
+    }
+    
+      if plainOk {
+        out.UID = plainV
+      } else if sliceOk {
+        
+          if len(sliceV) != 1 {
+            return fmt.Errorf("unexpected value for field UID: %v; expected exactly one element", raw)
+          }
+          out.UID = sliceV[0]
+        
+      } else {
+        return fmt.Errorf("unexpected value for field UID: %v (%v)", raw, reflect.TypeOf(raw))
+      }
+    
+  }
+  
+  if in.Description != nil {
+    raw := in.Description
+    plainV, plainOk := raw.(string)
+    sliceWrapperV, sliceWrapperOk := raw.([]interface{})
+    var sliceV []string
+    sliceOk := sliceWrapperOk
+    if sliceWrapperOk {
+      for _, rawItem := range sliceWrapperV {
+        
+        itemV, itemOk := rawItem.(string)
+        
+        if !itemOk {
+          
+          sliceOk = false
+          break
+          
+
+        }
+        
+        sliceV = append(sliceV, itemV)
+        
+      }
+    }
+    
+      if plainOk {
+        out.Description = &plainV
+      } else if sliceOk {
+        
+          if len(sliceV) == 1 {
+            out.Description = &sliceV[0]
+          } else if len(sliceV) > 1 {
+            return fmt.Errorf("unexpected value for field Description: %v; expected at most one element", raw)
+          }
+        
+      } else {
+        return fmt.Errorf("unexpected value for field Description: %v (%v)", raw, reflect.TypeOf(raw))
+      }
+    
+  }
+  
+  if in.Userpassword != nil {
+    raw := in.Userpassword
+    plainV, plainOk := raw.(string)
+    sliceWrapperV, sliceWrapperOk := raw.([]interface{})
+    var sliceV []string
+    sliceOk := sliceWrapperOk
+    if sliceWrapperOk {
+      for _, rawItem := range sliceWrapperV {
+        
+        itemV, itemOk := rawItem.(string)
+        
+        if !itemOk {
+          
+          sliceOk = false
+          break
+          
+
+        }
+        
+        sliceV = append(sliceV, itemV)
+        
+      }
+    }
+    
+      if plainOk {
+        out.Userpassword = &plainV
+      } else if sliceOk {
+        
+          if len(sliceV) == 1 {
+            out.Userpassword = &sliceV[0]
+          } else if len(sliceV) > 1 {
+            return fmt.Errorf("unexpected value for field Userpassword: %v; expected at most one element", raw)
+          }
+        
+      } else {
+        return fmt.Errorf("unexpected value for field Userpassword: %v (%v)", raw, reflect.TypeOf(raw))
+      }
+    
+  }
+  
+  if in.Random != nil {
+    raw := in.Random
+    plainV, plainOk := raw.(bool)
+    sliceWrapperV, sliceWrapperOk := raw.([]interface{})
+    var sliceV []bool
+    sliceOk := sliceWrapperOk
+    if sliceWrapperOk {
+      for _, rawItem := range sliceWrapperV {
+        
+        itemV, itemOk := rawItem.(bool)
+        
+        if !itemOk {
+          
+          // See https://github.com/tehwalris/go-freeipa/issues/3
+          // Sometimes IPA returns ["TRUE"] as a boolean value
+          strV, strOk := rawItem.(string)
+          if strOk {
+            boolV, err := strconv.ParseBool(strV)
+            if err != nil {
+              sliceOk = false
+              break
+            }
+
+            itemV = boolV
+          } else {
+            sliceOk = false
+            break
+          }
+          
+
+        }
+        
+        sliceV = append(sliceV, itemV)
+        
+      }
+    }
+    
+      if plainOk {
+        out.Random = &plainV
+      } else if sliceOk {
+        
+          if len(sliceV) == 1 {
+            out.Random = &sliceV[0]
+          } else if len(sliceV) > 1 {
+            return fmt.Errorf("unexpected value for field Random: %v; expected at most one element", raw)
+          }
+        
+      } else {
+        return fmt.Errorf("unexpected value for field Random: %v (%v)", raw, reflect.TypeOf(raw))
+      }
+    
+  }
+  
+  if in.Randompassword != nil {
+    raw := in.Randompassword
+    plainV, plainOk := raw.(string)
+    sliceWrapperV, sliceWrapperOk := raw.([]interface{})
+    var sliceV []string
+    sliceOk := sliceWrapperOk
+    if sliceWrapperOk {
+      for _, rawItem := range sliceWrapperV {
+        
+        itemV, itemOk := rawItem.(string)
+        
+        if !itemOk {
+          
+          sliceOk = false
+          break
+          
+
+        }
+        
+        sliceV = append(sliceV, itemV)
+        
+      }
+    }
+    
+      if plainOk {
+        out.Randompassword = &plainV
+      } else if sliceOk {
+        
+          if len(sliceV) == 1 {
+            out.Randompassword = &sliceV[0]
+          } else if len(sliceV) > 1 {
+            return fmt.Errorf("unexpected value for field Randompassword: %v; expected at most one element", raw)
+          }
+        
+      } else {
+        return fmt.Errorf("unexpected value for field Randompassword: %v (%v)", raw, reflect.TypeOf(raw))
+      }
+    
+  }
+  
+  if in.Nsaccountlock != nil {
+    raw := in.Nsaccountlock
+    plainV, plainOk := raw.(bool)
+    sliceWrapperV, sliceWrapperOk := raw.([]interface{})
+    var sliceV []bool
+    sliceOk := sliceWrapperOk
+    if sliceWrapperOk {
+      for _, rawItem := range sliceWrapperV {
+        
+        itemV, itemOk := rawItem.(bool)
+        
+        if !itemOk {
+          
+          // See https://github.com/tehwalris/go-freeipa/issues/3
+          // Sometimes IPA returns ["TRUE"] as a boolean value
+          strV, strOk := rawItem.(string)
+          if strOk {
+            boolV, err := strconv.ParseBool(strV)
+            if err != nil {
+              sliceOk = false
+              break
+            }
+
+            itemV = boolV
+          } else {
+            sliceOk = false
+            break
+          }
+          
+
+        }
+        
+        sliceV = append(sliceV, itemV)
+        
+      }
+    }
+    
+      if plainOk {
+        out.Nsaccountlock = &plainV
+      } else if sliceOk {
+        
+          if len(sliceV) == 1 {
+            out.Nsaccountlock = &sliceV[0]
+          } else if len(sliceV) > 1 {
+            return fmt.Errorf("unexpected value for field Nsaccountlock: %v; expected at most one element", raw)
+          }
+        
+      } else {
+        return fmt.Errorf("unexpected value for field Nsaccountlock: %v (%v)", raw, reflect.TypeOf(raw))
+      }
+    
+  }
+  
+  if in.HasPassword != nil {
+    raw := in.HasPassword
+    plainV, plainOk := raw.(bool)
+    sliceWrapperV, sliceWrapperOk := raw.([]interface{})
+    var sliceV []bool
+    sliceOk := sliceWrapperOk
+    if sliceWrapperOk {
+      for _, rawItem := range sliceWrapperV {
+        
+        itemV, itemOk := rawItem.(bool)
+        
+        if !itemOk {
+          
+          // See https://github.com/tehwalris/go-freeipa/issues/3
+          // Sometimes IPA returns ["TRUE"] as a boolean value
+          strV, strOk := rawItem.(string)
+          if strOk {
+            boolV, err := strconv.ParseBool(strV)
+            if err != nil {
+              sliceOk = false
+              break
+            }
+
+            itemV = boolV
+          } else {
+            sliceOk = false
+            break
+          }
+          
+
+        }
+        
+        sliceV = append(sliceV, itemV)
+        
+      }
+    }
+    
+      if plainOk {
+        out.HasPassword = &plainV
+      } else if sliceOk {
+        
+          if len(sliceV) == 1 {
+            out.HasPassword = &sliceV[0]
+          } else if len(sliceV) > 1 {
+            return fmt.Errorf("unexpected value for field HasPassword: %v; expected at most one element", raw)
+          }
+        
+      } else {
+        return fmt.Errorf("unexpected value for field HasPassword: %v (%v)", raw, reflect.TypeOf(raw))
+      }
+    
+  }
+  
+  if in.MemberofRole != nil {
+    raw := in.MemberofRole
+    plainV, plainOk := raw.(string)
+    sliceWrapperV, sliceWrapperOk := raw.([]interface{})
+    var sliceV []string
+    sliceOk := sliceWrapperOk
+    if sliceWrapperOk {
+      for _, rawItem := range sliceWrapperV {
+        
+        itemV, itemOk := rawItem.(string)
+        
+        if !itemOk {
+          
+          sliceOk = false
+          break
+          
+
+        }
+        
+        sliceV = append(sliceV, itemV)
+        
+      }
+    }
+    
+      if plainOk {
+        out.MemberofRole = &[]string{plainV}
+      } else if sliceOk {
+        
+        out.MemberofRole = &sliceV
+      } else {
+        return fmt.Errorf("unexpected value for field MemberofRole: %v (%v)", raw, reflect.TypeOf(raw))
       }
     
   }
